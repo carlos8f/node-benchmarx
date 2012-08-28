@@ -15,6 +15,7 @@ function loadConf (path) {
 program
   .version(version)
   .usage('[options] [files...]')
+  .option('-r, --runner <runner>', 'choose siege, ab, or node (default: siege)', 'siege')
   .option('-t, --time <seconds>', 'length of each benchmark (default: 30)', Number, 30)
   .option('-w, --wait <seconds>', 'wait between benchmarks (default: 10)', Number, 10)
   .option('-p, --paths <paths>', 'comma-separated paths to test (default: /)', list, ['/'])
