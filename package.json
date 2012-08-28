@@ -1,0 +1,38 @@
+{
+  "name": "benchmarx",
+  "version": "0.0.0",
+  "description": "HTTP-based side-by-side benchmark framework",
+  "main": "./lib",
+  "bin": "./bin/benchmarx.js",
+  "dependencies": {
+    "async": "~0.1.22",
+    "idgen": "~1.1.1",
+    "middler": "~0.4.5",
+    "commander": "~1.0.2",
+    "glob": "~3.1.12"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "buffet": "~0.4.0",
+    "node-static": "~0.6.0",
+    "send": "~0.0.4"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/carlos8f/node-benchmarx.git"
+  },
+  "keywords": [
+    "bench",
+    "benchmark",
+    "performance",
+    "test",
+    "scalability",
+    "http",
+    "bacon"
+  ],
+  "author": "Carlos Rodriguez",
+  "license": "MIT"
+}
