@@ -7,3 +7,5 @@ utils = require('../lib/utils');
 idgen = require('idgen');
 
 fs = require('fs');
+
+pkgInfo = require(utils.resolve(__dirname, '..') + '/package.json');
