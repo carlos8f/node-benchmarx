@@ -15,32 +15,50 @@ describe('basic test', function () {
       '--conf', './fixtures/conf.json',
       '--out', logFile,
       '--no-random',
-      '--title', 'benchmarx test',
-      'benchmarks/buffet-server.js'
+      '--title', 'benchmarx test'
     ];
 
     proc = execFile(utils.resolve(__dirname, '../bin/benchmarx.js'), args, {cwd: __dirname});
     proc.once('close', function (code) {
       done();
     });
+    proc.stdout.pipe(process.stdout);
+    proc.stderr.pipe(process.stderr);
   });
 
-  it('looks good', function (done) {
-    fs.readFile(logFile, 'utf8', function (err, log) {
-      var regex = '^benchmarx test\n==============\n\n'
-        + 'benchmarx\.js v' + pkgInfo.version.replace('.', '\\.') + '\n'
-        + '.*?\n\n'
-        + 'buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\-+\n\n'
-        + '\\*\\* SIEGE'
-        + '.*?'
-        + 'trans/sec'
-        //+ 'Transactions:.*?'
-        //+ '\n\n'
-
-      console.log(regex);
-      console.log(log);
-      assert(log.match(new RegExp(regex)));
+  var output;
+  it('can read the log', function (done) {
+    fs.readFile(logFile, 'utf8', function (err, data) {
+      output = data;
+      assert.ifError(err);
+      assert(output);
       done();
     });
+  });
+
+  it('can read the header', function () {
+    var regex = '^benchmarx test\n==============\n\n'
+      + 'benchmarx\.js v' + pkgInfo.version.replace('.', '\\.') + '\n'
+      + '.*?\n\n'
+      + 'buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\-+\n\n'
+      + '\\*\\* SIEGE'
+
+    assert(output.match(new RegExp(regex)));
+  });
+
+  it('can read trans/sec', function () {
+    var matches = output.match(/([\d\.]+) trans\/sec/);
+    assert(matches);
+    var speed = parseFloat(matches[1]);
+    assert(speed > 0);
+  });
+
+  it('can read the summary', function () {
+    var regex = 'SUMMARY\n-------\n\n'
+      + '(\\*+ +buffet(\-server)?@'
+      + pkgInfo.devDependencies.buffet.replace('.', '\\.')
+      + ' \\([\\d\\.]+ rps\\)\n){2}'
+
+    assert(output.match(new RegExp(regex)));
   });
 });

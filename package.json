@@ -13,9 +13,7 @@
   },
   "devDependencies": {
     "mocha": "*",
-    "buffet": "~0.4.0",
-    "node-static": "~0.6.0",
-    "send": "~0.0.4"
+    "buffet": "~0.4.0"
   },
   "scripts": {
     "test": "make test"
