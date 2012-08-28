@@ -26,7 +26,7 @@ program
   .parse(process.argv)
 
 if (!program.args.length) {
-  program.args = ['benchmarks/*.js'];
+  program.args = ['bench*/*.js'];
 }
 if (program.args.length === 1 && program.args[0].indexOf('*') !== -1) {
   // resolve a glob.
