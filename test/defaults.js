@@ -20,12 +20,9 @@ describe('slam', function () {
   });
 
   it('can read the header', function () {
-    var regex = '^benchmarx test\n==============\n\n'
-      + 'benchmarx\.js v' + pkgInfo.version.replace('.', '\\.') + '\n'
-      + '.*?\n\n'
-      + 'buffet'
-
-    assert(output.match(new RegExp(regex)));
+    assert(output.match(/benchmarx test\n==============\n\n/));
+    assert(output.match(new RegExp('benchmarx\\.js v' + pkgInfo.version.replace('.', '\\.') + '\n')));
+    assert(output.match(new RegExp('buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\\-+\n\n')));
   });
 
   it('can read trans/sec', function () {
