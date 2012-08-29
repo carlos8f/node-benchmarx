@@ -17,7 +17,7 @@ function loadOpts (path) {
 program
   .version(version)
   .usage('[options] [files...]')
-  .option('-r, --runner <runner>', 'choose siege, ab, or slam (default: siege)', 'siege')
+  .option('-r, --runner <runner>', 'choose slam, ab, or siege (default: slam)', 'slam')
   .option('-c, --concurrency <num>', 'level of concurrency (default: 10)', Number, 10)
   .option('-t, --time <seconds>', 'length of each benchmark (default: 30)', Number, 30)
   .option('-w, --wait <seconds>', 'wait between benchmarks (default: 10)', Number, 10)
