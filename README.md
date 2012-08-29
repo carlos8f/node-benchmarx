@@ -98,17 +98,17 @@ Usage
 
   Options:
 
-    -h, --help               output usage information
-    -V, --version            output the version number
-    -r, --runner <runner>    choose slam, ab, or siege (default: slam)
-    -c, --concurrency <num>  level of concurrency (default: 10)
-    -t, --time <seconds>     length of each benchmark (default: 30)
-    -w, --wait <seconds>     wait between benchmarks (default: 10)
-    -p, --path <paths>       path(s) to test, can be comma-separated (default: /)
-    --opts <path>            path to a JSON file to load options (passed to benchmarks)
-    -o, --out <outfile>      write results to a file
-    --title <title>          title for the header
-    --no-random              disable random benchmark order
+    -h, --help                 output usage information
+    -V, --version              output the version number
+    -r, --runner <runner>      choose slam, ab, or siege (default: slam)
+    -c, --concurrency <num>    level of concurrency (default: 10)
+    -t, --time <seconds>       length of each benchmark (default: 30)
+    -w, --wait <seconds>       wait between benchmarks (default: 10)
+    -p, --path <path(s)/file>  URL path(s) to test, can be comma-separated, or newline-separated file (default: /)
+    --opts <path>              file path to a JSON file to load options (passed to benchmarks)
+    -o, --out <outfile>        write results to a file
+    --title <title>            title for the header
+    --no-random                disable random benchmark order
 
 ```
 
