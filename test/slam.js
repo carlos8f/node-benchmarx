@@ -1,4 +1,4 @@
-describe('basic test', function () {
+describe('slam', function () {
   var proc
     , id = idgen()
     , logFile = '/tmp/benchmarx-' + id + '.log'
@@ -9,10 +9,12 @@ describe('basic test', function () {
 
   it('benchmarks', function (done) {
     var args = [
-      '--time', '4',
-      '--wait', '1',
-      '--paths', '/README.md',
-      '--conf', './fixtures/conf.json',
+      '--runner', 'slam',
+      '--concurrency', 1,
+      '--time', 2,
+      '--wait', 1,
+      '--path', '/README.md',
+      '--opts', './fixtures/conf.json',
       '--out', logFile,
       '--no-random',
       '--title', 'benchmarx test'
@@ -41,7 +43,6 @@ describe('basic test', function () {
       + 'benchmarx\.js v' + pkgInfo.version.replace('.', '\\.') + '\n'
       + '.*?\n\n'
       + 'buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\-+\n\n'
-      + '\\*\\* SIEGE'
 
     assert(output.match(new RegExp(regex)));
   });
@@ -54,11 +55,13 @@ describe('basic test', function () {
   });
 
   it('can read the summary', function () {
-    var regex = 'SUMMARY\n-------\n\n'
-      + '(\\*+ +buffet(\-server)?@'
-      + pkgInfo.devDependencies.buffet.replace('.', '\\.')
-      + ' \\([\\d\\.]+ rps\\)\n){2}'
+    assert(output.match(/SUMMARY\n-------\n\n/));
+    assert(output.match(/\*+ +buffet(\-server)? \([\d\.]+ rps\)/));
+    assert(output.match(new RegExp(pkgInfo.devDependencies.buffet.replace('.', '\\.'))));
 
-    assert(output.match(new RegExp(regex)));
+    var match = output.match(/([\d\.]+) rps\)/);
+    assert(match);
+    var rps = parseFloat(match[1]);
+    assert(rps > 0);
   });
 });

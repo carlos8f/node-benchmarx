@@ -9,7 +9,7 @@ var buffet;
 exports.listen = function (options, cb) {
   var port = utils.randomPort()
 
-  buffet = execFile(utils.resolve(__dirname, '../../node_modules/.bin/buffet'), ['-p', port, '--no-log'], {cwd: options.root})
+  buffet = execFile(utils.resolve(__dirname, '../../node_modules/.bin/buffet'), ['-p', port, '--no-log', '--no-watch'], {cwd: options.root})
   buffet.stderr.on('data', function (chunk) {
     if (chunk.toString().match(/listening/)) {
       cb(null, port);

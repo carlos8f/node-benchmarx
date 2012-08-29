@@ -4,22 +4,25 @@ var program = require('commander')
   , utils = require('../lib/utils')
   , version = require(utils.resolve(__dirname, '../package.json')).version
 
-function list (str) {
-  return str.split(/ *, */);
+function paths (str) {
+  return str.split(/ *, */).map(function (path) {
+    return path[0] === '/' ? path : '/' + path;
+  });
 }
 
-function loadConf (path) {
-  return require(utils.resolve(process.cwd(), path));
+function loadOpts (path) {
+  return require(utils.resolve(path));
 }
 
 program
   .version(version)
   .usage('[options] [files...]')
-  .option('-r, --runner <runner>', 'choose siege, ab, or node (default: siege)', 'siege')
+  .option('-r, --runner <runner>', 'choose siege, ab, or slam (default: siege)', 'siege')
+  .option('-c, --concurrency <num>', 'level of concurrency (default: 10)', Number, 10)
   .option('-t, --time <seconds>', 'length of each benchmark (default: 30)', Number, 30)
   .option('-w, --wait <seconds>', 'wait between benchmarks (default: 10)', Number, 10)
-  .option('-p, --paths <paths>', 'comma-separated paths to test (default: /)', list, ['/'])
-  .option('-c, --conf <path>', 'path to a JSON file to load options (passed to benchmarks)', loadConf, {})
+  .option('-p, --path <paths>', 'path(s) to test, can be comma-separated (default: /)', paths, ['/'])
+  .option('--opts <path>', 'path to a JSON file to load options (passed to benchmarks)', loadOpts, {})
   .option('-o, --out <outfile>', 'write results to a file')
   .option('--title <title>', 'title for the header')
   .option('--no-random', 'disable random benchmark order')
@@ -40,10 +43,9 @@ if (program.out) {
 }
 
 require('../')(program, function (err) {
-  if (program.out) program.stream.end();
   if (err) {
     console.error('Error: ' + err.message);
     process.exit(1);
   }
-  process.exit();
+  setTimeout(process.exit, 100);
 });
