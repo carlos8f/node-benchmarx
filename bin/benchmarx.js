@@ -3,10 +3,21 @@
 var program = require('commander')
   , utils = require('../lib/utils')
   , version = require(utils.resolve(__dirname, '../package.json')).version
+  , existsSync = require('fs').existsSync
+  , readFileSync = require('fs').readFileSync
 
 function paths (str) {
-  return str.split(/ *, */).map(function (path) {
+  if (existsSync(str)) {
+    str = readFileSync(str, 'utf8');
+  }
+  var paths = {};
+  return str.split(/\r?\n| *, */).map(function (path) {
+    path = path.replace(/\s+/, '');
     return path[0] === '/' ? path : '/' + path;
+  }).filter(function (path) {
+    // De-dupe
+    if (paths[path]) return false;
+    return paths[path] = true;
   });
 }
 
@@ -21,8 +32,8 @@ program
   .option('-c, --concurrency <num>', 'level of concurrency (default: 10)', Number, 10)
   .option('-t, --time <seconds>', 'length of each benchmark (default: 30)', Number, 30)
   .option('-w, --wait <seconds>', 'wait between benchmarks (default: 10)', Number, 10)
-  .option('-p, --path <paths>', 'path(s) to test, can be comma-separated (default: /)', paths, ['/'])
-  .option('--opts <path>', 'path to a JSON file to load options (passed to benchmarks)', loadOpts, {})
+  .option('-p, --path <path(s)/file>', 'URL path(s) to test, can be comma-separated, or newline-separated file (default: /)', paths, ['/'])
+  .option('--opts <path>', 'file path to a JSON file to load options (passed to benchmarks)', loadOpts, {})
   .option('-o, --out <outfile>', 'write results to a file')
   .option('--title <title>', 'title for the header')
   .option('--no-random', 'disable random benchmark order')
