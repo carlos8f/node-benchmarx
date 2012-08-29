@@ -24,7 +24,7 @@ Setup
 4. Add a `Makefile` with:
    ```
    bench:
-       @./node_modules/.bin/benchmarx
+   	@./node_modules/.bin/benchmarx
 
    .PHONY: bench
    ```
