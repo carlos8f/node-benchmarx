@@ -14,18 +14,17 @@ describe('siege', function () {
       '--time', 2,
       '--wait', 1,
       '--path', '/README.md',
-      '--opts', './fixtures/conf.json',
+      '--opts', 'examples/conf.json',
       '--out', logFile,
       '--no-random',
-      '--title', 'benchmarx test'
+      '--title', 'benchmarx test',
+      'examples/*.js'
     ];
 
-    proc = execFile(utils.resolve(__dirname, '../bin/benchmarx.js'), args, {cwd: __dirname});
+    proc = execFile(utils.resolve(__dirname, '../bin/benchmarx.js'), args, {cwd: utils.resolve(__dirname, '..')});
     proc.once('close', function (code) {
       done();
     });
-    proc.stdout.pipe(process.stdout);
-    proc.stderr.pipe(process.stderr);
   });
 
   var output;

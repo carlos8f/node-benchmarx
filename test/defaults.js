@@ -1,40 +1,21 @@
 describe('slam', function () {
   var proc
-    , id = idgen()
-    , logFile = '/tmp/benchmarx-' + id + '.log'
+    , output = ''
 
   process.once('exit', function () {
     proc && proc.kill();
   });
 
   it('benchmarks', function (done) {
-    var args = [
-      '--runner', 'slam',
-      '--concurrency', 1,
-      '--time', 2,
-      '--wait', 1,
-      '--path', '/README.md',
-      '--opts', './fixtures/conf.json',
-      '--out', logFile,
-      '--no-random',
-      '--title', 'benchmarx test'
-    ];
-
-    proc = execFile(utils.resolve(__dirname, '../bin/benchmarx.js'), args, {cwd: __dirname});
+    proc = spawn('make', ['bench'], {cwd: utils.resolve(__dirname, '..')});
     proc.once('close', function (code) {
       done();
     });
-    proc.stdout.pipe(process.stdout);
-    proc.stderr.pipe(process.stderr);
-  });
-
-  var output;
-  it('can read the log', function (done) {
-    fs.readFile(logFile, 'utf8', function (err, data) {
-      output = data;
-      assert.ifError(err);
-      assert(output);
-      done();
+    proc.stdout.on('data', function (chunk) {
+      output += chunk;
+    });
+    proc.stderr.on('data', function (chunk) {
+      output += chunk;
     });
   });
 
