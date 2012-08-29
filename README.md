@@ -31,13 +31,16 @@ API
 
 A benchmark file is a Node module which should export the following:
 
-### Property: `name` (required)
+### Property: `name` (optional)
 
-The name of the module/benchmark (for reporting)
+The name of the module/benchmark (for reporting). If not specified, the file's
+basename will be used.
 
 ### Property: `version` (optional)
 
-The version of the module you're benchmarking
+The version of the module/benchmark. If not specified, benchmarx will attempt
+to find the version automatically (by finding a `package.json` for the module
+called `name`)
 
 ### Method: `middleware(options)`
 

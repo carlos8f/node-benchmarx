@@ -1,7 +1,6 @@
 var execFile = require('child_process').execFile
   , utils = require('../lib/utils')
 
-exports.name = 'buffet-server';
 exports.version = require(utils.resolve(__dirname, '..') + '/package.json').devDependencies.buffet;
 
 var buffet;
