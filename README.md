@@ -109,6 +109,66 @@ Usage
 
 ```
 
+Sample output
+-------------
+
+```
+benchmarx.js v0.1.0
+Tue Aug 28 2012 20:56:14 GMT-0700 (PDT)
+
+buffet@~0.4.0
+-------------
+
+
+slam v1.0.2
+Tue Aug 28 2012 20:56:14 GMT-0700 (PDT)
+
+slamming http://127.0.0.1:36919/README.md x5 for 2s...
+
+Transactions:                 13116 hits
+Availability:                100.00 %
+Elapsed time:                  2.02 secs
+Data transferred:              4.30 MB
+Response time:                 0.00 secs
+Transaction rate:           6486.64 trans/sec
+Throughput:                    2.12 MB/sec
+Concurrency:                   4.26 
+Successful transactions:      13116 
+Failed transactions:              0 
+Longest transaction:           0.11 
+Shortest transaction:          0.00 
+
+
+buffet-server@~0.4.0
+--------------------
+
+
+slam v1.0.2
+Tue Aug 28 2012 20:56:18 GMT-0700 (PDT)
+
+slamming http://127.0.0.1:27629/README.md x5 for 2s...
+
+Transactions:                 15551 hits
+Availability:                100.00 %
+Elapsed time:                  2.21 secs
+Data transferred:              5.10 MB
+Response time:                 0.00 secs
+Transaction rate:           7008.11 trans/sec
+Throughput:                    2.29 MB/sec
+Concurrency:                   2.94 
+Successful transactions:      15551 
+Failed transactions:              0 
+Longest transaction:           0.21 
+Shortest transaction:          0.00 
+
+
+SUMMARY
+-------
+
+****************  buffet-server (7008.11 rps)
+***************   buffet (6486.64 rps)
+```
+
 - - -
 
 ### Developed by [Terra Eclipse](http://www.terraeclipse.com)
