@@ -1,6 +1,6 @@
 {
   "name": "benchmarx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "HTTP-based side-by-side benchmark framework",
   "main": "./lib",
   "bin": "./bin/benchmarx.js",
