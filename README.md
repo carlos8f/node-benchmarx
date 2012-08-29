@@ -21,13 +21,7 @@ Setup
 1. `npm install --save-dev benchmarx` in your project folder
 2. Create one or more benchmark files (format described below), and put them in
    a `bench` or `benchmarks` folder
-4. Add a `Makefile` with:
-   ```
-   bench:
-   	@./node_modules/.bin/benchmarx
-
-   .PHONY: bench
-   ```
+4. Add a `Makefile` [such as this](https://github.com/carlos8f/node-benchmarx/blob/master/Makefile)
 5. Type `make bench`!
 
 API
