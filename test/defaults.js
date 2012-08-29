@@ -23,7 +23,7 @@ describe('slam', function () {
     var regex = '^benchmarx test\n==============\n\n'
       + 'benchmarx\.js v' + pkgInfo.version.replace('.', '\\.') + '\n'
       + '.*?\n\n'
-      + 'buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\-+\n\n'
+      + 'buffet'
 
     assert(output.match(new RegExp(regex)));
   });
@@ -37,7 +37,8 @@ describe('slam', function () {
 
   it('can read the summary', function () {
     assert(output.match(/SUMMARY\n-------\n\n/));
-    assert(output.match(/\*+ +buffet(\-server)? \([\d\.]+ rps\)/));
+    assert(output.match(/\*+ +buffet\-server \([\d\.]+ rps\)/));
+    assert(output.match(/\*+ +buffet \([\d\.]+ rps\)/));
     assert(output.match(new RegExp(pkgInfo.devDependencies.buffet.replace('.', '\\.'))));
 
     var match = output.match(/([\d\.]+) rps\)/);

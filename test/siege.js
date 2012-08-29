@@ -55,7 +55,8 @@ describe('siege', function () {
 
   it('can read the summary', function () {
     assert(output.match(/SUMMARY\n-------\n\n/));
-    assert(output.match(/\*+ +buffet(\-server)? \([\d\.]+ rps\)/));
+    assert(output.match(/\*+ +buffet\-server \([\d\.]+ rps\)/));
+    assert(output.match(/\*+ +buffet \([\d\.]+ rps\)/));
     assert(output.match(new RegExp(pkgInfo.devDependencies.buffet.replace('.', '\\.'))));
 
     var match = output.match(/([\d\.]+) rps\)/);
