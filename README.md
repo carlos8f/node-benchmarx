@@ -60,8 +60,8 @@ exports.middleware = function (options) {
 
 ### Method: `listen(options, cb)`
 
-If you're benchmarking a server, have this function call `cb(err, port)`
-to tell `benchmarx` which port the server is listening on.
+If you're benchmarking a server, have this function call `cb(err, port)` or
+`cb(err, "host:port")` to tell `benchmarx` which port the server is listening on.
 
 #### Example
 
