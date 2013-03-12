@@ -21,7 +21,7 @@ describe('slam', function () {
 
   it('can read the header', function () {
     assert(output.match(/benchmarx test\n==============\n\n/));
-    assert(output.match(new RegExp('benchmarx\\.js v' + pkgInfo.version.replace('.', '\\.') + '\n')));
+    assert(output.match(new RegExp('benchmarx v' + pkgInfo.version.replace('.', '\\.') + '\n')));
     assert(output.match(new RegExp('buffet-server@' + pkgInfo.devDependencies.buffet.replace('.', '\\.') + '\n\\-+\n\n')));
   });
 

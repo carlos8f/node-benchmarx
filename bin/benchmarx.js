@@ -2,7 +2,7 @@
 
 var program = require('commander')
   , utils = require('../lib/utils')
-  , version = require(utils.resolve(__dirname, '../package.json')).version
+  , pkgInfo = require(utils.resolve(__dirname, '../package.json'))
   , existsSync = require('fs').existsSync
   , readFileSync = require('fs').readFileSync
 
@@ -26,12 +26,13 @@ function loadOpts (path) {
 }
 
 program
-  .version(version)
+  .version(pkgInfo.version)
   .usage('[options] [files...]')
   .option('-r, --runner <runner>', 'choose slam, ab, or siege (default: slam)', 'slam')
   .option('-c, --concurrency <num>', 'level of concurrency (default: 10)', Number, 10)
   .option('-t, --time <seconds>', 'length of each benchmark (default: 30)', Number, 30)
   .option('-w, --wait <seconds>', 'wait between benchmarks (default: 10)', Number, 10)
+  .option('-h, --host <host>', 'hostname of http server. (default: localhost)')
   .option('-p, --path <path(s)/file>', 'URL path(s) to test, can be comma-separated, or newline-separated file (default: /)', paths, ['/'])
   .option('--opts <path>', 'file path to a JSON file to load options (passed to benchmarks)', loadOpts, {})
   .option('-o, --out <outfile>', 'write results to a file')
@@ -47,7 +48,8 @@ if (program.args.length === 1 && program.args[0].indexOf('*') !== -1) {
   program.args = require('glob').sync(program.args[0]);
 }
 
-program.version = version;
+program.name = pkgInfo.name;
+program.version = pkgInfo.version;
 
 if (program.out) {
   program.stream = require('fs').createWriteStream(program.out);
